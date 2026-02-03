@@ -1,0 +1,799 @@
+:root {
+    /* Brand colors */
+    --cream: #eeeae3;
+    --charcoal: #222222;
+    --red: #c73a3a;
+    --gray: #666666;
+    --light-gray: #999999;
+
+    /* Scroll aesthetics (Wabi-style) */
+    --scroll-bg-color: rgb(238, 234, 227);
+    --scroll-text-color: rgb(34, 34, 34);
+    --scroll-highlight-color: rgb(253, 226, 47);
+    --scroll-image-color: rgb(34, 34, 34);
+    --color-brand-black: #222222;
+
+    /* Animation timing (Material Design standard) */
+    --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    --duration-fast: 300ms;
+    --duration-normal: 500ms;
+    --duration-slow: 800ms;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+/* Custom text selection colors (Wabi-style) */
+::selection {
+    background-color: var(--scroll-highlight-color);
+    color: var(--scroll-text-color);
+}
+
+::-moz-selection {
+    background-color: var(--scroll-highlight-color);
+    color: var(--scroll-text-color);
+}
+
+body {
+    font-family: 'Roboto Mono', -apple-system, system-ui, sans-serif;
+    background-color: var(--scroll-bg-color);
+    color: var(--scroll-text-color);
+    font-size: 23px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    position: relative;
+}
+
+
+
+/* Header */
+.header {
+    position: relative;
+    z-index: 100;
+    background-color: var(--scroll-bg-color);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-text {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--charcoal);
+    display: block;
+}
+
+.nav-link {
+    font-size: 1rem;
+    color: var(--scroll-text-color);
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: all var(--duration-normal) var(--default-transition-timing-function);
+    display: flex;
+    align-items: center;
+}
+
+.nav-link:hover {
+    opacity: 0.6;
+}
+
+/* Main Content */
+.main-content {
+    padding-top: 0;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+.content-wrapper {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 0 2rem 8rem;
+}
+
+/* Hero Section (Wabi-style viewport units) */
+.hero {
+    margin-bottom: 4rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    text-align: center;
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-mark {
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeInHero var(--duration-slow) var(--default-transition-timing-function) 0.1s forwards;
+    will-change: transform;
+    transition: all 100ms var(--default-transition-timing-function);
+}
+
+.camera-animation {
+    position: relative;
+    height: 120px;
+    display: inline-block;
+}
+
+.camera-body {
+    height: 120px;
+    width: auto;
+    display: block;
+    position: relative;
+    z-index: 3;
+}
+
+.polaroid {
+    position: absolute;
+    top: 76%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100%);
+    height: 40px;
+    width: auto;
+    z-index: 1;
+    animation: polaroidSlide 2s ease-out 0.8s forwards;
+}
+
+.camera-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80%;
+    background-color: var(--cream);
+    z-index: 2;
+}
+
+@keyframes fadeInHero {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes polaroidSlide {
+    0% {
+        transform: translateX(-50%) translateY(-100%);
+    }
+    100% {
+        transform: translateX(-50%) translateY(6px);
+    }
+}
+
+.hero-title {
+    font-family: 'Covered By Your Grace', cursive;
+    /* Wabi-style viewport width scaling */
+    font-size: clamp(2rem, 9svw, 5rem);
+    /* Tight line-height like Wabi (98.551%) */
+    line-height: 0.985;
+    color: var(--scroll-text-color);
+    font-weight: 400;
+    /* Negative letter-spacing like Wabi */
+    letter-spacing: -0.02em;
+    text-align: center;
+    margin: 0;
+    opacity: 0;
+    animation: fadeInTitle var(--duration-slow) var(--default-transition-timing-function) 0.2s forwards;
+    will-change: transform, opacity;
+    transition: all 100ms var(--default-transition-timing-function);
+}
+
+/* Responsive scaling (tablet/desktop) */
+@media (min-width: 768px) {
+    .hero-title {
+        font-size: clamp(2.2rem, 9svw, 5.5rem);
+    }
+}
+
+@keyframes fadeInTitle {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Story Section with Line-by-Line Animation */
+.story {
+    margin-bottom: 10rem;
+    text-align: left;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    padding: 0 2rem;
+}
+
+.story-content {
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Decorative Photos - Left Side */
+.story-photos-left {
+    position: absolute;
+    left: -240px;
+    top: 10%;
+    width: 280px;
+    z-index: 0;
+}
+
+.polaroid-photo {
+    position: absolute;
+    width: 180px;
+    height: auto;
+    transform-origin: center;
+    opacity: 0;
+}
+
+.polaroid-photo.visible {
+    animation: fadeInPhoto var(--duration-slow) var(--default-transition-timing-function) forwards;
+}
+
+.photo-1 {
+    top: 0;
+    left: 20px;
+}
+
+.photo-1.visible {
+    animation-delay: 0.3s;
+    animation-name: fadeInPhoto1;
+}
+
+.photo-2 {
+    top: 140px;
+    left: 60px;
+}
+
+.photo-2.visible {
+    animation-delay: 0.6s;
+    animation-name: fadeInPhoto2;
+}
+
+.photo-3 {
+    top: 320px;
+    left: 0;
+}
+
+.photo-3.visible {
+    animation-delay: 0.9s;
+    animation-name: fadeInPhoto3;
+}
+
+@keyframes fadeInPhoto1 {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotate(-8deg);
+    }
+}
+
+@keyframes fadeInPhoto2 {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotate(5deg);
+    }
+}
+
+@keyframes fadeInPhoto3 {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotate(-3deg);
+    }
+}
+
+/* Decorative Photos - Right Side */
+.story-photos-right {
+    position: absolute;
+    right: -150px;
+    top: 20%;
+    width: 220px;
+    z-index: 0;
+}
+
+.photo-strip {
+    width: 100%;
+    height: auto;
+    opacity: 0;
+}
+
+.photo-strip.visible {
+    animation: fadeInStrip var(--duration-slow) var(--default-transition-timing-function) 0.4s forwards;
+}
+
+@keyframes fadeInStrip {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotate(3deg);
+    }
+}
+
+.story-block {
+    margin-bottom: 6rem;
+    will-change: transform;
+    transition: all 150ms var(--default-transition-timing-function);
+    position: relative;
+    z-index: 1;
+}
+
+.story-block:last-child {
+    margin-bottom: 0;
+}
+
+.line {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    /* Tighter line-height for better rhythm */
+    line-height: 1.25;
+    color: var(--scroll-text-color);
+    font-weight: 500;
+    /* Negative letter-spacing */
+    letter-spacing: -0.015em;
+    opacity: 0;
+    /* Wabi-style transition-all */
+    transition: all var(--duration-normal) var(--default-transition-timing-function);
+    margin: 0;
+    padding: 0.25rem 0;
+}
+
+.line.visible {
+    opacity: 1;
+}
+
+.sera-animated-logo {
+    display: inline-block;
+    position: relative;
+    height: 1.4em;
+    width: 2.5em;
+    vertical-align: baseline;
+    margin: 0 0.2em;
+}
+
+.sera-frame {
+    position: absolute;
+    height: 1.4em;
+    width: auto;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
+.sera-frame-1 {
+    animation: frame1 0.6s infinite;
+}
+
+.sera-frame-2 {
+    animation: frame2 0.6s infinite;
+}
+
+.sera-frame-3 {
+    animation: frame3 0.6s infinite;
+}
+
+@keyframes frame1 {
+    0%, 33.33% {
+        opacity: 1;
+    }
+    33.34%, 100% {
+        opacity: 0;
+    }
+}
+
+@keyframes frame2 {
+    0%, 33.33% {
+        opacity: 0;
+    }
+    33.34%, 66.66% {
+        opacity: 1;
+    }
+    66.67%, 100% {
+        opacity: 0;
+    }
+}
+
+@keyframes frame3 {
+    0%, 66.66% {
+        opacity: 0;
+    }
+    66.67%, 100% {
+        opacity: 1;
+    }
+}
+
+.highlight-text {
+    font-family: 'Roboto Mono', monospace;
+    position: relative;
+    display: inline-block;
+    padding: 0 0.1em;
+}
+
+.highlight-imperfect {
+    font-family: 'Covered By Your Grace', cursive;
+    font-size: 1.5em;
+}
+
+.highlight-text::after {
+    content: '';
+    position: absolute;
+    bottom: 0.1em;
+    left: -0.05em;
+    right: -0.05em;
+    height: 0.5em;
+    background: var(--scroll-highlight-color);
+    z-index: -1;
+    transform: rotate(-0.5deg) scaleX(0);
+    transform-origin: left;
+    border-radius: 2px;
+    /* Wabi-style: transition-all with 500ms duration */
+    transition: all var(--duration-normal) var(--default-transition-timing-function) 200ms;
+}
+
+.line.visible .highlight-text::after {
+    transform: rotate(-0.5deg) scaleX(1);
+}
+
+.smiley {
+    display: inline-block;
+    animation: smileyBounce 2s ease-in-out infinite;
+}
+
+@keyframes smileyBounce {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-8px) rotate(-5deg);
+    }
+    50% {
+        transform: translateY(0) rotate(0deg);
+    }
+    75% {
+        transform: translateY(-4px) rotate(5deg);
+    }
+}
+
+/* Download Section */
+.download {
+    text-align: center;
+    margin: 12rem 0 8rem;
+    will-change: transform;
+    transition: all 150ms var(--default-transition-timing-function);
+}
+
+.download-header {
+    font-family: 'Covered By Your Grace', cursive;
+    /* Responsive viewport scaling */
+    font-size: clamp(2rem, 8svw, 4.5rem);
+    color: var(--scroll-text-color);
+    font-weight: 400;
+    margin-bottom: 2rem;
+    /* Tight line-height */
+    line-height: 1.1;
+    /* Negative letter-spacing */
+    letter-spacing: -0.015em;
+    opacity: 0;
+    animation: fadeInSlide 0.8s var(--default-transition-timing-function) 0.3s forwards;
+}
+
+.download-icon {
+    width: 150px;
+    height: auto;
+    margin-bottom: 2rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (min-width: 768px) {
+    .download-header {
+        font-size: clamp(3rem, 5svw, 4.5rem);
+    }
+}
+
+.app-store-button {
+    display: inline-block;
+    /* Wabi-style transition-all */
+    transition: all var(--duration-normal) var(--default-transition-timing-function);
+    opacity: 0;
+}
+
+.app-store-button.visible {
+    opacity: 1;
+}
+
+.app-store-button img {
+    width: 280px;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    transform: rotate(4deg);
+    transition: all var(--duration-normal) var(--default-transition-timing-function);
+}
+
+.app-store-button:hover img {
+    transform: rotate(-2deg);
+}
+
+/* Footer (Wabi-style z-index) */
+.footer {
+    position: relative;
+    z-index: 10;
+    padding: 4rem 2rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 2rem;
+}
+
+.footer-brand {
+    justify-self: start;
+}
+
+.footer-center {
+    justify-self: center;
+}
+
+.footer-social {
+    justify-self: end;
+}
+
+.footer-logo {
+    height: 32px;
+    width: auto;
+    display: block;
+}
+
+.footer-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.footer-link {
+    font-size: 0.875rem;
+    color: var(--gray);
+    text-decoration: none;
+    transition: all var(--duration-normal) var(--default-transition-timing-function);
+    letter-spacing: 0.01em;
+}
+
+.footer-link:hover {
+    color: var(--charcoal);
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header-content {
+        padding: 1.5rem 1.5rem 0.875rem;
+    }
+
+    .logo-text {
+        font-size: 0.95rem;
+    }
+
+    .nav-link {
+        font-size: 0.95rem;
+    }
+
+    .main-content {
+        padding-top: 0;
+    }
+
+    .content-wrapper {
+        padding: 0 1.5rem 6rem;
+    }
+
+    .hero {
+        margin-bottom: 3rem;
+        padding-top: 1.5rem;
+        min-height: auto;
+    }
+
+    .hero-mark {
+        margin-bottom: 1.5rem;
+    }
+
+    .camera-animation {
+        height: 96px;
+    }
+
+    .camera-body {
+        height: 96px;
+    }
+
+    .polaroid {
+        height: 32px;
+    }
+
+    .camera-mask {
+        height: 78%;
+    }
+
+    .hero-title {
+        font-size: clamp(2rem, 9svw, 4.5rem);
+    }
+
+    .story {
+        margin-bottom: 6rem;
+        padding: 0 1.5rem;
+    }
+
+    .story-content {
+        max-width: 100%;
+    }
+
+    /* Hide decorative photos on tablet */
+    .story-photos-left,
+    .story-photos-right {
+        display: none;
+    }
+
+    .story-block {
+        margin-bottom: 4.5rem;
+    }
+
+    .line {
+        font-size: clamp(1.15rem, 3vw, 1.35rem);
+        line-height: 1.35;
+    }
+
+    .download {
+        margin: 8rem 0 6rem;
+    }
+
+    .download-header {
+        font-size: clamp(2rem, 7vw, 3rem);
+        margin-bottom: 2.5rem;
+    }
+
+    .app-store-button img {
+        width: 220px;
+    }
+
+    .footer-logo {
+        height: 28px;
+    }
+
+    .footer {
+        padding: 3rem 2rem;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 1.5rem;
+    }
+
+    .footer-brand,
+    .footer-center,
+    .footer-social {
+        justify-self: center;
+    }
+
+    .footer-nav {
+        gap: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding-top: 0;
+    }
+
+    .content-wrapper {
+        padding: 0 1.25rem 5rem;
+    }
+
+    .hero {
+        margin-bottom: 2.5rem;
+        padding-top: 1rem;
+        min-height: auto;
+    }
+
+    .hero-mark {
+        margin-bottom: 1rem;
+    }
+
+    .camera-animation {
+        height: 80px;
+    }
+
+    .camera-body {
+        height: 80px;
+    }
+
+    .polaroid {
+        height: 28px;
+    }
+
+    .camera-mask {
+        height: 78%;
+    }
+
+    .story {
+        margin-bottom: 4rem;
+    }
+
+    .story-block {
+        margin-bottom: 3.5rem;
+    }
+
+    .download {
+        margin: 6rem 0 5rem;
+    }
+
+    .download-header {
+        font-size: clamp(1.75rem, 8vw, 2.5rem);
+        margin-bottom: 2rem;
+    }
+
+    .app-store-button img {
+        width: 180px;
+    }
+
+    .footer {
+        padding: 2.5rem 2rem;
+    }
+
+    .footer-logo {
+        height: 24px;
+    }
+}
+
