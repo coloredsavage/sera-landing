@@ -1,7 +1,6 @@
 # Sera - Photobooth App
 User-agent: *
 Allow: /
-Disallow: /privacy.html
 
 # Sitemap
 Sitemap: https://sera.camera/sitemap.xml
