@@ -3,6 +3,17 @@ RewriteEngine On
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+# Remove .html extension
+# Redirect .html URLs to extensionless versions
+RewriteCond %{THE_REQUEST} ^GET\ /[^?\s]+\.html
+RewriteRule ^(.*)\.html$ /$1 [L,R=301]
+
+# Serve .html files when requesting extensionless URLs
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html [L]
+
 # Compression
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml
