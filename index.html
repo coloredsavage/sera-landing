@@ -94,13 +94,6 @@
 
             <!-- Text Content with Line-by-Line Reveal -->
             <section class="story">
-                <!-- Decorative Photos - Left Side -->
-                <div class="story-photos-left">
-                    <img src="singles/image (3) 1.png" alt="" class="polaroid-photo photo-1" />
-                    <img src="singles/image (3) 2.png" alt="" class="polaroid-photo photo-2" />
-                    <img src="singles/image (3) 3.png" alt="" class="polaroid-photo photo-3" />
-                </div>
-
                 <!-- Decorative Photos - Right Side -->
                 <div class="story-photos-right">
                     <img src="strip.png" alt="" class="photo-strip" />
@@ -117,6 +110,14 @@
                     <p class="line">the countdown that makes everyone laugh</p>
                     <p class="line">the strip that comes out, still warm</p>
                     <p class="line">four <span class="highlight-text highlight-imperfect">imperfect</span> photos that somehow capture everything</p>
+                </div>
+
+                <!-- Decorative Photos - Singles -->
+                <div class="story-photos-left">
+                    <img src="singles/image (3) 1.png" alt="" class="polaroid-photo photo-1" />
+                    <img src="singles/image (3) 2.png" alt="" class="polaroid-photo photo-2" />
+                    <img src="singles/image (3) 3.png" alt="" class="polaroid-photo photo-3" />
+                    <img src="singles/image (3) 4.png" alt="" class="polaroid-photo photo-4" />
                 </div>
 
                 <div class="story-block">
@@ -156,6 +157,7 @@
             <nav class="footer-nav footer-center">
                 <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener noreferrer" class="footer-link">terms</a>
                 <a href="privacy" class="footer-link">privacy</a>
+                <a href="mailto:hello@sera.camera" class="footer-link">support</a>
             </nav>
             <nav class="footer-nav footer-social">
                 <a href="https://www.tiktok.com/@sera" target="_blank" rel="noopener noreferrer" class="footer-link">tiktok</a>
@@ -163,6 +165,206 @@
             </nav>
         </div>
     </footer>
+
+    <!-- Debug Controls -->
+    <div id="debug-info" style="position: fixed; top: 10px; left: 10px; background: rgba(0,0,0,0.8); color: white; padding: 15px; font-family: monospace; font-size: 11px; z-index: 10000; border-radius: 8px; display: none; max-width: 90vw;">
+        <div style="margin-bottom: 10px; font-weight: bold;">📍 Drag photos to position | 🔍 Use controls to scale</div>
+        <div id="positions-output" style="margin-bottom: 10px;"></div>
+        <button onclick="copyPositions()" style="background: #4CAF50; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 3px; margin-right: 5px;">Copy CSS</button>
+        <button onclick="resetPositions()" style="background: #ff9800; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 3px;">Reset</button>
+    </div>
+
+    <div id="scale-controls" style="position: fixed; bottom: 80px; left: 10px; right: 10px; background: rgba(0,0,0,0.8); color: white; padding: 15px; font-family: monospace; font-size: 11px; z-index: 10000; border-radius: 8px; display: none;">
+        <div style="margin-bottom: 10px;">
+            <label>Photo 1 Scale: <span id="scale1Val">100%</span></label>
+            <input type="range" id="scale1" min="50" max="200" value="100" style="width: 100%;">
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label>Photo 2 Scale: <span id="scale2Val">100%</span></label>
+            <input type="range" id="scale2" min="50" max="200" value="100" style="width: 100%;">
+        </div>
+        <div>
+            <label>Photo 3 Scale: <span id="scale3Val">100%</span></label>
+            <input type="range" id="scale3" min="50" max="200" value="100" style="width: 100%;">
+        </div>
+    </div>
+
+    <button id="debug-toggle" onclick="toggleDebug()" style="position: fixed; bottom: 20px; right: 20px; background: #2196F3; color: white; border: none; padding: 12px 20px; cursor: pointer; border-radius: 50px; font-family: monospace; z-index: 9999; box-shadow: 0 4px 12px rgba(0,0,0,0.3); font-size: 14px;">
+        🎨 Debug Mode
+    </button>
+
+    <script>
+        let debugMode = false;
+        const photoStates = {
+            photo1: { x: 20, y: 0, scale: 1, rotation: 0 },
+            photo2: { x: 60, y: 120, scale: 1, rotation: 0 },
+            photo3: { x: 30, y: 280, scale: 1, rotation: 0 }
+        };
+
+        function toggleDebug() {
+            debugMode = !debugMode;
+            const info = document.getElementById('debug-info');
+            const controls = document.getElementById('scale-controls');
+            const toggle = document.getElementById('debug-toggle');
+
+            if (debugMode) {
+                info.style.display = 'block';
+                controls.style.display = 'block';
+                toggle.textContent = '✖️ Exit Debug';
+                toggle.style.background = '#ff4444';
+                enableDragging();
+            } else {
+                info.style.display = 'none';
+                controls.style.display = 'none';
+                toggle.textContent = '🎨 Debug Mode';
+                toggle.style.background = '#2196F3';
+                disableDragging();
+            }
+            updateOutput();
+        }
+
+        function enableDragging() {
+            const photos = [
+                { el: document.querySelector('.photo-1'), key: 'photo1' },
+                { el: document.querySelector('.photo-2'), key: 'photo2' },
+                { el: document.querySelector('.photo-3'), key: 'photo3' }
+            ];
+
+            photos.forEach(({ el, key }) => {
+                if (!el) return;
+
+                el.style.cursor = 'move';
+                el.style.position = 'absolute';
+                el.style.left = photoStates[key].x + 'px';
+                el.style.top = photoStates[key].y + 'px';
+
+                let isDragging = false;
+                let startX, startY, initialX, initialY;
+
+                const onStart = (e) => {
+                    isDragging = true;
+                    const touch = e.type.includes('touch') ? e.touches[0] : e;
+                    startX = touch.clientX;
+                    startY = touch.clientY;
+                    initialX = photoStates[key].x;
+                    initialY = photoStates[key].y;
+                    el.style.zIndex = '1000';
+                    e.preventDefault();
+                };
+
+                const onMove = (e) => {
+                    if (!isDragging) return;
+                    const touch = e.type.includes('touch') ? e.touches[0] : e;
+                    const deltaX = touch.clientX - startX;
+                    const deltaY = touch.clientY - startY;
+
+                    photoStates[key].x = initialX + deltaX;
+                    photoStates[key].y = initialY + deltaY;
+
+                    el.style.left = photoStates[key].x + 'px';
+                    el.style.top = photoStates[key].y + 'px';
+
+                    updateOutput();
+                    e.preventDefault();
+                };
+
+                const onEnd = () => {
+                    isDragging = false;
+                    el.style.zIndex = '';
+                };
+
+                el.addEventListener('mousedown', onStart);
+                el.addEventListener('touchstart', onStart, { passive: false });
+                document.addEventListener('mousemove', onMove);
+                document.addEventListener('touchmove', onMove, { passive: false });
+                document.addEventListener('mouseup', onEnd);
+                document.addEventListener('touchend', onEnd);
+
+                el._dragHandlers = { onStart, onMove, onEnd };
+            });
+
+            // Scale controls
+            const scaleSliders = [
+                { slider: document.getElementById('scale1'), valueSpan: document.getElementById('scale1Val'), photo: document.querySelector('.photo-1'), key: 'photo1' },
+                { slider: document.getElementById('scale2'), valueSpan: document.getElementById('scale2Val'), photo: document.querySelector('.photo-2'), key: 'photo2' },
+                { slider: document.getElementById('scale3'), valueSpan: document.getElementById('scale3Val'), photo: document.querySelector('.photo-3'), key: 'photo3' }
+            ];
+
+            scaleSliders.forEach(({ slider, valueSpan, photo, key }) => {
+                if (!slider || !photo) return;
+
+                slider.addEventListener('input', (e) => {
+                    const scale = e.target.value / 100;
+                    photoStates[key].scale = scale;
+                    valueSpan.textContent = e.target.value + '%';
+                    photo.style.transform = `scale(${scale})`;
+                    photo.style.transformOrigin = 'center';
+                    updateOutput();
+                });
+            });
+        }
+
+        function disableDragging() {
+            const photos = document.querySelectorAll('.polaroid-photo');
+            photos.forEach(el => {
+                el.style.cursor = '';
+                if (el._dragHandlers) {
+                    el.removeEventListener('mousedown', el._dragHandlers.onStart);
+                    el.removeEventListener('touchstart', el._dragHandlers.onStart);
+                    delete el._dragHandlers;
+                }
+            });
+        }
+
+        function updateOutput() {
+            const output = document.getElementById('positions-output');
+            const css = `@media (max-width: 768px) {
+    .photo-1 {
+        left: ${Math.round(photoStates.photo1.x)}px;
+        top: ${Math.round(photoStates.photo1.y)}px;
+        transform: scale(${photoStates.photo1.scale});
+    }
+    .photo-2 {
+        left: ${Math.round(photoStates.photo2.x)}px;
+        top: ${Math.round(photoStates.photo2.y)}px;
+        transform: scale(${photoStates.photo2.scale});
+    }
+    .photo-3 {
+        left: ${Math.round(photoStates.photo3.x)}px;
+        top: ${Math.round(photoStates.photo3.y)}px;
+        transform: scale(${photoStates.photo3.scale});
+    }
+}`;
+            output.innerHTML = `<pre style="margin: 0; font-size: 10px; line-height: 1.4; overflow-x: auto;">${css}</pre>`;
+            window._currentCSS = css;
+        }
+
+        function copyPositions() {
+            if (window._currentCSS) {
+                navigator.clipboard.writeText(window._currentCSS);
+                alert('CSS copied to clipboard! 📋');
+            }
+        }
+
+        function resetPositions() {
+            photoStates.photo1 = { x: 20, y: 0, scale: 1, rotation: 0 };
+            photoStates.photo2 = { x: 60, y: 120, scale: 1, rotation: 0 };
+            photoStates.photo3 = { x: 30, y: 280, scale: 1, rotation: 0 };
+
+            document.getElementById('scale1').value = 100;
+            document.getElementById('scale2').value = 100;
+            document.getElementById('scale3').value = 100;
+            document.getElementById('scale1Val').textContent = '100%';
+            document.getElementById('scale2Val').textContent = '100%';
+            document.getElementById('scale3Val').textContent = '100%';
+
+            if (debugMode) {
+                disableDragging();
+                enableDragging();
+            }
+            updateOutput();
+        }
+    </script>
 
     <script src="script.js"></script>
 </body>
