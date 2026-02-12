@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>Support - Sera</title>
+    <meta name="title" content="Support - Sera">
+    <meta name="description" content="Get help with Sera. Contact support, find answers to common questions, and learn how to use the photobooth app.">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Sera">
+    <meta name="language" content="en">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://sera.camera/support">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="Favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="Favicon.png">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#eeeae3">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .support-container {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 4rem 2rem 8rem;
+        }
+
+        .support-title {
+            font-family: 'Covered By Your Grace', cursive;
+            font-size: clamp(2.5rem, 8svw, 4rem);
+            line-height: 1.1;
+            letter-spacing: -0.015em;
+            color: var(--scroll-text-color);
+            margin-bottom: 1rem;
+        }
+
+        .support-subtitle {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.125rem;
+            line-height: 1.6;
+            color: var(--scroll-text-color);
+            margin-bottom: 3rem;
+            opacity: 0.8;
+        }
+
+        .support-section {
+            margin-bottom: 3rem;
+        }
+
+        .support-section h2 {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--scroll-text-color);
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .support-section p {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--scroll-text-color);
+            margin-bottom: 0.75rem;
+        }
+
+        .support-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .support-section li {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--scroll-text-color);
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .support-section li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+        }
+
+        .faq-item {
+            margin-bottom: 2rem;
+        }
+
+        .faq-question {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--scroll-text-color);
+            margin-bottom: 0.75rem;
+        }
+
+        .faq-answer {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--scroll-text-color);
+            opacity: 0.9;
+        }
+
+        .faq-answer ol {
+            margin: 0.75rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .faq-answer ol li {
+            margin-bottom: 0.5rem;
+            padding-left: 0;
+        }
+
+        .faq-answer ol li::before {
+            display: none;
+        }
+
+        .support-contact {
+            margin-top: 4rem;
+            padding: 2rem;
+            background: rgba(34, 34, 34, 0.03);
+            border-radius: 8px;
+        }
+
+        .support-contact h2 {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--scroll-text-color);
+            margin-bottom: 1rem;
+        }
+
+        .support-contact p {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--scroll-text-color);
+            margin-bottom: 1rem;
+        }
+
+        .support-contact a {
+            color: var(--scroll-text-color);
+            text-decoration: underline;
+            transition: opacity var(--duration-fast) var(--default-transition-timing-function);
+        }
+
+        .support-contact a:hover {
+            opacity: 0.6;
+        }
+
+        .support-links {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(34, 34, 34, 0.1);
+        }
+
+        .support-links h2 {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--scroll-text-color);
+            margin-bottom: 1rem;
+        }
+
+        .support-links p {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--scroll-text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .support-links a {
+            color: var(--scroll-text-color);
+            text-decoration: underline;
+            transition: opacity var(--duration-fast) var(--default-transition-timing-function);
+        }
+
+        .support-links a:hover {
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <a href="/" style="text-decoration: none;">
+                    <span class="logo-text">sera</span>
+                </a>
+            </div>
+            <nav>
+                <a href="/#download" class="nav-link">download</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="support-container">
+            <h1 class="support-title">sera support</h1>
+            <p class="support-subtitle">we're here to help. usually respond within 24 hours.</p>
+
+            <div class="support-contact">
+                <h2>contact us</h2>
+                <p>email: <a href="mailto:support@sera.camera">support@sera.camera</a></p>
+                <p>got questions, feedback, or just want to say hi? we'd love to hear from you.</p>
+            </div>
+
+            <div class="support-section">
+                <h2>frequently asked questions</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question">how do i cancel my subscription?</div>
+                    <div class="faq-answer">
+                        <p>subscriptions are managed through your apple id. to cancel:</p>
+                        <ol>
+                            <li>open the settings app on your iphone</li>
+                            <li>tap your name at the top</li>
+                            <li>tap "subscriptions"</li>
+                            <li>tap "sera"</li>
+                            <li>tap "cancel subscription"</li>
+                        </ol>
+                        <p>you'll keep access until the end of your current billing period.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">how do i restore my purchase?</div>
+                    <div class="faq-answer">
+                        <p>if you bought sera premium or a subscription on another device:</p>
+                        <ol>
+                            <li>open sera</li>
+                            <li>tap the settings icon (top right)</li>
+                            <li>select "restore purchases"</li>
+                            <li>your purchase will be restored automatically</li>
+                        </ol>
+                        <p>make sure you're signed in with the same apple id you used to purchase.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">what payment methods do you accept?</div>
+                    <div class="faq-answer">
+                        <p>all purchases go through apple's app store, so you can use any payment method linked to your apple id — credit cards, debit cards, apple pay, or app store credit.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">how do i delete my account or data?</div>
+                    <div class="faq-answer">
+                        <p>sera doesn't create accounts — all your photos stay on your device and in your icloud. to delete everything:</p>
+                        <ol>
+                            <li>delete any photos you took with sera from your photo library</li>
+                            <li>delete the sera app from your iphone</li>
+                        </ol>
+                        <p>that's it. we don't store your photos on our servers.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">my photos aren't saving. what should i do?</div>
+                    <div class="faq-answer">
+                        <p>make sure sera has permission to access your photo library:</p>
+                        <ol>
+                            <li>open the settings app</li>
+                            <li>scroll down and tap "sera"</li>
+                            <li>tap "photos"</li>
+                            <li>select "all photos" or "add photos only"</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">can i use sera on ipad or android?</div>
+                    <div class="faq-answer">
+                        <p>sera is currently only available for iphone. we designed it specifically for the iphone camera experience. no plans for ipad or android right now, but never say never!</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">what ios version do i need?</div>
+                    <div class="faq-answer">
+                        <p>sera works on iphone running ios 15 or later. we recommend keeping your phone updated to the latest ios version for the best experience.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">how do i report a bug or request a feature?</div>
+                    <div class="faq-answer">
+                        <p>found a bug? want to suggest a feature? email us at <a href="mailto:support@sera.camera">support@sera.camera</a> with:</p>
+                        <ul>
+                            <li>what happened (for bugs) or what you'd like to see (for features)</li>
+                            <li>your iphone model and ios version</li>
+                            <li>screenshots if relevant</li>
+                        </ul>
+                        <p>we read every message and genuinely appreciate your feedback.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="support-links">
+                <h2>privacy & terms</h2>
+                <p><a href="privacy">privacy policy</a> — how we handle your data (spoiler: we don't collect much)</p>
+                <p><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener noreferrer">terms of service</a> — apple's standard terms</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="Sera-logo.svg" alt="Sera" class="footer-logo" />
+            </div>
+            <nav class="footer-nav footer-center">
+                <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener noreferrer" class="footer-link">terms</a>
+                <a href="privacy" class="footer-link">privacy</a>
+                <a href="support" class="footer-link">support</a>
+            </nav>
+            <nav class="footer-nav footer-social">
+                <a href="https://www.tiktok.com/@sera" target="_blank" rel="noopener noreferrer" class="footer-link">tiktok</a>
+                <a href="https://www.instagram.com/@sera" target="_blank" rel="noopener noreferrer" class="footer-link">instagram</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>
